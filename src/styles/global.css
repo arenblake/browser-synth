@@ -1,0 +1,10 @@
+* {
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+body {
+    margin: 0;
+    box-sizing: border-box;
+    background: rgba(244, 162, 97, 0.4);
+}
