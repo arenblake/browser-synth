@@ -4,9 +4,10 @@
     import Mixer from "../components/Mixer.svelte";
     import Modules from "../components/Modules.svelte";
     import Sidebar from "../components/Sidebar.svelte";
+    import Synth from "../components/Synth.svelte";
     // @ts-ignore
     import Tabs from "$lib/Tabs.svelte"
-    
+
     // tabs
     let items = ['Synth 1', 'Synth 2', 'Drum Machine', 'Effects', 'Mixer'];
     let activeItem = 'Synth 1';
@@ -19,7 +20,7 @@
 <div class="synth">
     <Sidebar />
     {#if activeItem === 'Synth 1'}
-        <Modules />
+        <Synth />
     {:else if activeItem === 'Synth 2'}
         <Modules />
     {:else if activeItem === 'Drum Machine'}
