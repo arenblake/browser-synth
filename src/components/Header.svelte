@@ -1,15 +1,18 @@
 <script>
-
+import Transport from './Transport.svelte';
 </script>
 
 <header>
     <h1>Web Synth</h1>
-    <div class="tabs">
+    <!-- <div class="tabs">
         <a href="/">Synth 1</a>
         <a href="/">Synth 2</a>
         <a href="/">Drum Machine</a>
         <a href="/">Effects</a>
         <a href="/">Mixer</a>
+    </div> -->
+    <div class="tabs">
+        <Transport />
     </div>
 </header>
 
