@@ -1,6 +1,6 @@
 <script lang='ts'>
     import Knob from 'svelte-knob';
-    import SynthStore from './SynthStore';
+    import {SynthStore} from './SynthStore';
     export let num: String;
 
     let detune = 0;

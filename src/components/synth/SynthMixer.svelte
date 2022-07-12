@@ -1,6 +1,6 @@
 <script>
     import Knob from 'svelte-knob';
-    import SynthStore from './SynthStore';
+    import {SynthStore} from './SynthStore';
     let gain = 0;
 
     $: {

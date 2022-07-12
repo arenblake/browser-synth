@@ -1,7 +1,8 @@
 <script lang='ts'>
     import * as Tone from 'tone';
     import { onMount } from 'svelte';
-    import SynthStore from './SynthStore';
+    import {SynthStore} from './SynthStore';
+    import {Envelopes, FilterEnvelope, PitchEnvelope} from './EnvelopeStore'
     import SeqStore from '../SeqStore';
     import type { MonoSynth } from 'tone';
     let synths: MonoSynth[]
@@ -59,25 +60,31 @@
             for (let synth in synths) {
                 synths[synth].filterEnvelope.baseFrequency = $SynthStore.filterFreq
                 synths[synth].filter.Q.value = $SynthStore.filterRes
+                synths[synth].filterEnvelope.set({
+                    attack: $FilterEnvelope.attack,
+                    decay: $FilterEnvelope.decay,
+                    sustain: $FilterEnvelope.sustain,
+                    release: $FilterEnvelope.release
+                })
             }
         }
     }
 
-    // $: {
-    //     if (synths) {
-    //         for (let synth in synths) {
-    //             synths[synth].set({
-    //                 envelope: {
-    //                     attack: $SynthStore.attack,
-    //                     decay: $SynthStore.decay,
-    //                     sustain: $SynthStore.sustain,
-    //                     release: $SynthStore.release
-    //                 }
-    //             })
+    $: {
+        if (synths) {
+            for (let synth in synths) {
+                synths[synth].set({
+                    envelope: {
+                        attack: $Envelopes.attack,
+                        decay: $Envelopes.decay,
+                        sustain: $Envelopes.sustain,
+                        release: $Envelopes.release
+                    }
+                })
 
-    //         }
-    //     }
-    // }
+            }
+        }
+    }
 
     const notes = ["C4", "B3", "A3", "G3", "F3", "E3", "D3", "C3"];
 
@@ -85,7 +92,14 @@
         const synths = [];
         for (let i = 0; i < count; i++) {  
             // const gainNode = new Tone.Gain(gain).toDestination();
+            // const pitchEnv = new Tone.Envelope(
+            //     $PitchEnvelope.attack,
+            //     $PitchEnvelope.decay,
+            //     $PitchEnvelope.sustain,
+            //     $PitchEnvelope.release
+            //     )
             const synth = new Tone.MonoSynth().toDestination();
+            // pitchEnv.connect(synth.detune)
             synths.push(synth);
         }
         console.log(synths)

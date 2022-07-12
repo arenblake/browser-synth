@@ -1,19 +1,50 @@
 <script>
     import Knob from 'svelte-knob';
-    import SynthStore from './SynthStore';
+    import {Envelopes, FilterEnvelope, PitchEnvelope} from './EnvelopeStore';
     let size = 70
 
-    let attack = 0.8
-    let decay = 0.2
-    let sustain = 0.8
-    let release = 2
+    let ampAttack = 0.8
+    let ampDecay = 0.2
+    let ampSustain = 0.8
+    let ampRelease = 2
+
+    let filterAttack = 0.8
+    let filterDecay = 0.2
+    let filterSustain = 0.8
+    let filterRelease = 2
+
+    let pitchAttack = 0.8
+    let pitchDecay = 0.2
+    let pitchSustain = 0.8
+    let pitchRelease = 2
+
+    $: {
+        Envelopes.update(data => {
+            data.attack = ampAttack
+            data.decay = ampDecay,
+            data.sustain = ampSustain,
+            data.release = ampRelease
+            return data
+        })
+    }
+
+    $: {
+        FilterEnvelope.update(data => {
+            data.attack = filterAttack
+            data.decay = filterDecay,
+            data.sustain = filterSustain,
+            data.release = filterRelease
+            return data
+        })
+    }
 
     // $: {
-    //     SynthStore.update(data => {
-    //         data.attack = attack,
-    //         data.decay = decay,
-    //         data.sustain = sustain,
-    //         data.release = release
+    //     PitchEnvelope.update(data => {
+    //         data.attack = pitchAttack
+    //         data.decay = pitchDecay,
+    //         data.sustain = pitchSustain,
+    //         data.release = pitchRelease
+    //         return data
     //     })
     // }
 
@@ -23,18 +54,25 @@
     <h3>Envelopes</h3>
     <h4>Amp</h4>
     <div class="adsr-row">
-        <Knob bind:value={attack} responsive={true} {size} />
-        <Knob bind:value={decay} responsive={true} {size} />
-        <Knob bind:value={sustain} responsive={true} {size} />
-        <Knob bind:value={release} responsive={true} {size} />
+        <Knob bind:value={ampAttack} responsive={true} {size} max={4} step={0.1}/>
+        <Knob bind:value={ampDecay} responsive={true} {size} max={4} step={0.1}/>
+        <Knob bind:value={ampSustain} responsive={true} {size} max={1} step={0.1}/>
+        <Knob bind:value={ampRelease} responsive={true} {size} max={10} step={0.1}/>
     </div>
     <h4>Filter</h4>
     <div class="adsr-row">
-        <Knob value={50} responsive={true} {size} />
-        <Knob value={50} responsive={true} {size} />
-        <Knob value={50} responsive={true} {size} />
-        <Knob value={50} responsive={true} {size} />
+        <Knob bind:value={filterAttack} responsive={true} {size} max={4} step={0.1}/>
+        <Knob bind:value={filterDecay} responsive={true} {size} max={4} step={0.1}/>
+        <Knob bind:value={filterSustain} responsive={true} {size} max={1} step={0.1}/>
+        <Knob bind:value={filterRelease} responsive={true} {size} max={10} step={0.1}/>
     </div>
+    <!-- <h4>Pitch</h4>
+    <div class="adsr-row">
+        <Knob bind:value={pitchAttack} responsive={true} {size} max={400} step={0.1}/>
+        <Knob bind:value={pitchDecay} responsive={true} {size} max={400} step={0.1}/>
+        <Knob bind:value={pitchSustain} responsive={true} {size} max={100} step={0.1}/>
+        <Knob bind:value={pitchRelease} responsive={true} {size} max={100} step={0.1}/>
+    </div> -->
     <!-- <h4>Aux Destination</h4>
     <div class="selectors">
         <button>Filter Freq</button>
