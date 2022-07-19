@@ -16,19 +16,21 @@
 <Tabs {activeItem} {items} on:tabChange={tabChange} />
 
 <div class="synth">
-    {#if activeItem === 'Synth 1'}
+    <div hidden={activeItem !== 'Synth 1'}>
         <Synth />
-    {:else if activeItem === 'Synth 2'}
+    </div>
+    <div hidden={activeItem !== 'Synth 2'}>
         <Synth />
-    {:else if activeItem === 'Drum Machine'}
+    </div>
+    <div hidden={activeItem !== 'Drum Machine'}>
         <DrumMachine />
-    {:else if activeItem === 'Effects'}
+    </div>
+    <div hidden={activeItem !== 'Effects'}>
         <Effects />
-    {:else if activeItem === 'Mixer'}
+    </div>
+    <div hidden={activeItem !== 'Mixer'}>
         <Mixer />
-    {/if}
-    <!-- <Synth />
-    <Effects /> -->
+    </div>
 </div>
 
 <style>
