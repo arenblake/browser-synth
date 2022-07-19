@@ -1,8 +1,6 @@
 <script lang="ts">
     import { onMount } from 'svelte';
     import SeqStore from './SeqStore';
-    // import classNames from 'classnames'
-    // const classNames = require('classnames')
 
     let numSteps = 32;
     let numNotes = 8;
@@ -33,12 +31,6 @@
             gridElement.style.border = '1px solid black'
             gridElement.style.borderRadius = '3px'
             gridElement.style.margin = '.1rem'
-            // if(i % 4 === 0) {
-            //     gridElement.style.background = 'rgba(74, 82, 90, 0.2)' 
-            // }
-            // gridElement.addEventListener('mouseover', changeColor)
-            // gridElement.addEventListener('mouseout', changeColor)
-            // gridElement.addEventListener('click', handleClick);
             beatIndicator.appendChild(gridElement)
         }
         mounted = true;
@@ -68,7 +60,6 @@
 
     $: {
         if(mounted) {
-            // console.log("Beat",$SeqStore.beat)
             const beat = document.getElementById(`${$SeqStore.beat}`)
             const lastBeat = document.getElementById(`${$SeqStore.beat === 0 ? 31 : $SeqStore.beat - 1}`)
             beat ? beat.style.background = 'red' : null

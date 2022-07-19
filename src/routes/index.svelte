@@ -1,9 +1,7 @@
 <script>
     import DrumMachine from "../components/DrumMachine.svelte";
-    import Effects from "../components/Effects.svelte";
+    import Effects from "../components/effects/Effects.svelte";
     import Mixer from "../components/Mixer.svelte";
-    // import Modules from "../components/Modules.svelte";
-    // import Sidebar from "../components/Sidebar.svelte";
     import Synth from "../components/synth/Synth.svelte";
     // @ts-ignore
     import Tabs from "$lib/Tabs.svelte"
@@ -18,7 +16,6 @@
 <Tabs {activeItem} {items} on:tabChange={tabChange} />
 
 <div class="synth">
-    <!-- <Sidebar /> -->
     {#if activeItem === 'Synth 1'}
         <Synth />
     {:else if activeItem === 'Synth 2'}
@@ -30,6 +27,8 @@
     {:else if activeItem === 'Mixer'}
         <Mixer />
     {/if}
+    <!-- <Synth />
+    <Effects /> -->
 </div>
 
 <style>

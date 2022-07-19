@@ -1,11 +1,20 @@
 <script>
     import Knob from 'svelte-knob';
-    import {SynthStore} from './SynthStore';
-    let gain = 0;
+    import {Osc1Store} from './stores/Osc1Store'
+    import {Osc2Store} from './stores/Osc2Store'
+    let gainA = 0;
+    let gainB = 0;
 
     $: {
-        SynthStore.update(data => {
-            data.gain = gain
+        Osc1Store.update(data => {
+            data.gain = gainA
+            return data
+        })
+    }
+
+    $: {
+        Osc2Store.update(data => {
+            data.gain = gainB
             return data
         })
     }
@@ -15,9 +24,9 @@
 <div class="mixer">
     <h3>Mixer</h3>
     <h4>OSC 1</h4>
-    <Knob bind:value={gain} responsive={true} size={50} min={-60} max={12} step={0.1}/>
+    <Knob bind:value={gainA} responsive={true} size={50} min={-60} max={12} step={0.1}/>
     <h4>OSC 2</h4>
-    <Knob value={50} responsive={true} size={50}/>
+    <Knob bind:value={gainB} responsive={true} size={50} min={-60} max={12} step={0.1}/>
     <h4>Noise</h4>
     <Knob value={50} responsive={true} size={50}/>
 </div>

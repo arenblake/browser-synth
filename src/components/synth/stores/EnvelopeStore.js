@@ -17,12 +17,3 @@ export const FilterEnvelope = writable(
         release: 2,
     }
 )
-
-export const PitchEnvelope = writable(
-    {
-        attack: 0.2,
-        decay: 0.2,
-        sustain: 0.8,
-        release: 2,
-    }
-)

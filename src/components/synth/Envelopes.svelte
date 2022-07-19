@@ -1,6 +1,6 @@
 <script>
     import Knob from 'svelte-knob';
-    import {Envelopes, FilterEnvelope, PitchEnvelope} from './EnvelopeStore';
+    import {Envelopes, FilterEnvelope} from './stores/EnvelopeStore';
     let size = 70
 
     let ampAttack = 0.8
@@ -13,10 +13,6 @@
     let filterSustain = 0.8
     let filterRelease = 2
 
-    let pitchAttack = 0.8
-    let pitchDecay = 0.2
-    let pitchSustain = 0.8
-    let pitchRelease = 2
 
     $: {
         Envelopes.update(data => {
@@ -37,17 +33,6 @@
             return data
         })
     }
-
-    // $: {
-    //     PitchEnvelope.update(data => {
-    //         data.attack = pitchAttack
-    //         data.decay = pitchDecay,
-    //         data.sustain = pitchSustain,
-    //         data.release = pitchRelease
-    //         return data
-    //     })
-    // }
-
 </script>
 
 <div class="envelopes">
@@ -66,13 +51,6 @@
         <Knob bind:value={filterSustain} responsive={true} {size} max={1} step={0.1}/>
         <Knob bind:value={filterRelease} responsive={true} {size} max={10} step={0.1}/>
     </div>
-    <!-- <h4>Pitch</h4>
-    <div class="adsr-row">
-        <Knob bind:value={pitchAttack} responsive={true} {size} max={400} step={0.1}/>
-        <Knob bind:value={pitchDecay} responsive={true} {size} max={400} step={0.1}/>
-        <Knob bind:value={pitchSustain} responsive={true} {size} max={100} step={0.1}/>
-        <Knob bind:value={pitchRelease} responsive={true} {size} max={100} step={0.1}/>
-    </div> -->
     <!-- <h4>Aux Destination</h4>
     <div class="selectors">
         <button>Filter Freq</button>
@@ -98,8 +76,6 @@
         flex-direction: column;
         gap: .7rem;
         margin: .5rem;
-        /* justify-content: space-around;
-        gap: 1rem; */
     }
     h3 {
         margin-top: 0;

@@ -1,5 +1,4 @@
 <script>
-
     import * as Tone from 'tone';
     import { onMount } from 'svelte';
 
@@ -13,9 +12,6 @@
         })
         document.getElementById('stop')?.addEventListener('click', async () => {
             Tone.Transport.stop()
-        })
-        document.getElementById('change')?.addEventListener('click', async () => {
-        // notes = ['D2', 'E#2', 'A3', 'Bb3']
         })
     })
 

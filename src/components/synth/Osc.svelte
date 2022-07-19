@@ -1,30 +1,17 @@
 <script lang='ts'>
     import Knob from 'svelte-knob';
-    import {SynthStore} from './SynthStore';
     export let num: String;
+    export let detune = 0;
+    export let oscType = 'square'
+    export let octave = '0'
 
-    let detune = 0;
 
     function changeOsc(type) {
-        SynthStore.update(data => {
-            data.osc1Type = type;
-            console.log(data)
-            return data
-        })
+        oscType = type
     }
 
-    function changeOctave(octave) {
-        SynthStore.update(data => {
-            data.octave = octave;
-            return data
-        })
-    }
-
-    $: {
-        SynthStore.update(data => {
-            data.detune = detune
-            return data
-        })
+    function changeOctave(newOctave) {
+        octave = newOctave
     }
 
 </script>
@@ -43,8 +30,8 @@
         <button on:click='{() => changeOctave('-24')}'>-2</button>
         <button on:click='{() => changeOctave('-12')}'>-1</button>
         <button on:click='{() => changeOctave('0')}'>0</button>
-        <button on:click='{() => changeOctave('12')}'>+2</button>
-        <button on:click='{() => changeOctave('24')}'>+1</button>
+        <button on:click='{() => changeOctave('12')}'>+1</button>
+        <button on:click='{() => changeOctave('24')}'>+2</button>
     </div>
 </div>
 
