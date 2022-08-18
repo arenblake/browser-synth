@@ -77,19 +77,19 @@
         }
     }
 
-    // $: {
-    //     if (synths) {
-    //         for (let synth in synths) {
-    //             synths[synth].oscillator.type = $Osc1Store.oscType
-    //         }
-    //     }
+    $: {
+        if (synths) {
+            for (let synth in synths) {
+                synths[synth].oscillator.type = $Osc1Store.oscType
+            }
+        }
 
-    //     if (synthsB) {
-    //         for (let synth in synthsB) {
-    //             synthsB[synth].oscillator.type = $Osc2Store.oscType
-    //         }
-    //     }
-    // }
+        if (synthsB) {
+            for (let synth in synthsB) {
+                synthsB[synth].oscillator.type = $Osc2Store.oscType
+            }
+        }
+    }
 
     $: {
         if(grid) {
