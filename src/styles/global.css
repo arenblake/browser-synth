@@ -1,10 +1,19 @@
 * {
-    box-sizing: border-box;
-    text-align: center;
-  }
+	box-sizing: border-box;
+	text-align: center;
+	font-family: monospace;
+}
 
 body {
-    margin: 0;
-    box-sizing: border-box;
-    background: rgba(244, 162, 97, 0.4);
+	margin: 0;
+	box-sizing: border-box;
+	/* background: rgba(244, 162, 97, 0.4); */
 }
+
+svg {
+	margin: auto;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
