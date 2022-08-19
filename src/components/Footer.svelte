@@ -1,11 +1,7 @@
-
-
-<footer>
-    Copyright 2022
-</footer>
+<footer>Copyright Aren Blake 2022</footer>
 
 <style>
-    footer {
-        background: rgba(38, 70, 83, 0.2);
-    }
+	footer {
+		background: rgba(38, 70, 83, 0.2);
+	}
 </style>
