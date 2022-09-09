@@ -191,13 +191,13 @@
 
 	const makeSynths = (
 		count: number,
-		tremolo,
-		vibrato,
-		reverb,
-		delay,
-		distortion,
-		autofilter,
-		bitcrusher
+		tremolo: Tone.Tremolo | Tone.InputNode,
+		vibrato: Tone.Vibrato | Tone.InputNode,
+		reverb: Tone.Reverb | Tone.InputNode,
+		delay: Tone.Delay,
+		distortion: Tone.Distortion,
+		autofilter: Tone.AutoFilter,
+		bitcrusher: Tone.BitCrusher
 	) => {
 		const synths = [];
 		for (let i = 0; i < count; i++) {
