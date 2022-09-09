@@ -1,11 +1,14 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import SeqStore from './SeqStore';
-	import { genRandomPreset } from '../utils/api';
+	import { genRandomPreset, createPreset, listPresets } from '../utils/api';
+	import { object_without_properties } from 'svelte/internal';
 
 	let numSteps = 32;
 	let numNotes = 8;
 	let mounted = false;
+	let presetList: any[] = [];
+	let selected: object;
 
 	onMount(() => {
 		const grid: HTMLElement | null = document.getElementById('grid');
@@ -34,8 +37,15 @@
 			gridElement.style.margin = '.1rem';
 			beatIndicator.appendChild(gridElement);
 		}
+
+		getPresets();
 		mounted = true;
 	});
+
+	async function getPresets() {
+		presetList = await listPresets();
+		console.log(presetList);
+	}
 
 	function handleClick(e) {
 		$SeqStore.grid[e.target.id].isActive
@@ -80,40 +90,92 @@
 			data.grid.splice(0, data.grid.length, ...preset);
 			return data;
 		});
-		console.log($SeqStore.grid);
+		// console.log($SeqStore.grid);
 		$SeqStore.grid.forEach((item, index) => {
 			const square = document.getElementById(index.toString());
-			// console.log(square);
-			// item.isActive
-			// 	? (square.style.background = 'rgba(200, 182, 90, 0.8)')
-			// 	: (square.style.background = 'rgb(5 150 105)');
 			item.isActive
 				? (square.style.background = 'rgb(5 150 105)')
 				: (square.style.background = 'transparent');
 		});
+	}
 
-		// document.getElementById('grid');
+	let presetName = 'new preset';
+	async function handleSave(e) {
+		e.preventDefault();
+		const boolVals = $SeqStore.grid.map(({ isActive }) => isActive);
+		const newPreset = {
+			name: presetName,
+			pattern: boolVals
+		};
+		// console.log(newPreset);
+		const preset = await createPreset(newPreset);
+	}
+
+	function handleLoad() {
+		// console.log(selected);
+		SeqStore.update((data) => {
+			const { pattern } = selected;
+			console.log(pattern);
+			const preset = pattern.map((bool) => {
+				return {
+					isActive: bool
+				};
+			});
+			// console.log(preset);
+			data.grid.splice(0, data.grid.length, ...preset);
+			console.log(data);
+			return data;
+		});
+		$SeqStore.grid.forEach((item, index) => {
+			const square = document.getElementById(index.toString());
+			item.isActive
+				? (square.style.background = 'rgb(5 150 105)')
+				: (square.style.background = 'transparent');
+		});
 	}
 </script>
 
-<button
-	class="inline-block px-6 py-2.5 bg-gray-800 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-gray-900 hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out"
-	on:click={handleGenPreset}>Generate Random Preset</button
->
+<div class="presets bg-slate-200 py-2 mx-2">
+	<button
+		class="inline-block px-6 py-2.5 bg-gray-800 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-gray-900 hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out"
+		on:click={handleGenPreset}>Generate Random Preset</button
+	>
+
+	<form on:submit|preventDefault={handleSave}>
+		<label>Name:</label>
+		<input type="text" bind:value={presetName} />
+		<button
+			class="inline-block px-6 py-2.5 bg-gray-800 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-gray-900 hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out"
+			>Save Preset</button
+		>
+	</form>
+
+	<form on:submit|preventDefault={handleLoad}>
+		<label>Presets:</label>
+		<select bind:value={selected}>
+			{#each presetList as preset}
+				<option value={preset}>
+					{preset.name}
+				</option>
+			{/each}
+		</select>
+		<button
+			class="inline-block px-6 py-2.5 bg-gray-800 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-gray-900 hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out"
+			>Load Preset</button
+		>
+	</form>
+</div>
 
 <div id="beat-indicator" class="beat-indicator-container" />
 
 <div id="grid" class="seq-container" />
 
 <style>
-	/* .class1 {
-        color: blue;
-    } */
-
-	/* .class2 {
-        color: red;
-    } */
-
+	.presets {
+		display: flex;
+		gap: 5rem;
+		justify-content: center;
+	}
 	.beat-indicator-container {
 		display: grid;
 		grid-template-columns: repeat(32, 1fr);

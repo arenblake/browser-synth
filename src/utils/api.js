@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:5002';
+const API_BASE_URL = 'http://localhost:5005';
 
 /**
  * Defines the default headers for these functions to work with `json-server`
@@ -46,5 +46,20 @@ async function fetchJson(url, options, onCancel) {
 
 export async function genRandomPreset(signal) {
 	const url = new URL(`${API_BASE_URL}/sequencer/random`);
+	return await fetchJson(url, { headers, signal }, []);
+}
+
+export async function createPreset(data) {
+	const url = `${API_BASE_URL}/sequencer`;
+	const options = {
+		method: 'POST',
+		headers,
+		body: JSON.stringify({ data })
+	};
+	return await fetchJson(url, options, {});
+}
+
+export async function listPresets(signal) {
+	const url = `${API_BASE_URL}/sequencer`;
 	return await fetchJson(url, { headers, signal }, []);
 }
