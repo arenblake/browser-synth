@@ -12,7 +12,10 @@
 
 	let synths: MonoSynth[];
 	let synthsB: MonoSynth[];
-	let grid: Object[][];
+	let grid: {
+		isActive: boolean;
+		note: string;
+	}[][];
 	let transposeA = 0;
 	let transposeB = 0;
 	let tremolo1: Tone.Tremolo;
@@ -77,12 +80,14 @@
 	$: {
 		if (synths && $Osc1Store) {
 			for (let synth in synths) {
+				// @ts-ignore
 				synths[synth].oscillator.type = $Osc1Store.oscType;
 			}
 		}
 
 		if (synthsB && $Osc1Store) {
 			for (let synth in synthsB) {
+				// @ts-ignore
 				synthsB[synth].oscillator.type = $Osc2Store.oscType;
 			}
 		}
@@ -265,7 +270,7 @@
 	const configLoop = () => {
 		let beat = 0;
 
-		const repeat = (time) => {
+		const repeat = (time: Tone.Unit.Time) => {
 			grid.forEach((row, index) => {
 				let synth = synths[index];
 				let synthB = synthsB[index];

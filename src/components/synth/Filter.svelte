@@ -1,21 +1,6 @@
 <script>
 	import Knob from 'svelte-knob';
 	import { SynthStore } from './stores/SynthStore';
-
-	let frequency = 200;
-	let res = 0;
-
-	// $: {
-	// 	frequency = $SynthStore.filterFreq;
-	// 	res = $SynthStore.filterRes;
-	// }
-
-	$: {
-		SynthStore.update((data) => {
-			(data.filterFreq = frequency), (data.filterRes = res);
-			return data;
-		});
-	}
 </script>
 
 <div class="flex flex-col items-center m-2 gap-3">

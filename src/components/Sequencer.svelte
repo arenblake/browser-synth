@@ -7,7 +7,9 @@
 	let numNotes = 8;
 	let mounted = false;
 	let presetList: any[] = [];
-	let selected: object;
+	let selected: {
+		pattern: [];
+	};
 
 	onMount(() => {
 		const grid: HTMLElement | null = document.getElementById('grid');
@@ -24,7 +26,7 @@
 			gridElement.addEventListener('mouseover', changeColor);
 			gridElement.addEventListener('mouseout', changeColor);
 			gridElement.addEventListener('click', handleClick);
-			grid.appendChild(gridElement);
+			grid && grid.appendChild(gridElement);
 		}
 		const beatIndicator: HTMLElement | null = document.getElementById('beat-indicator');
 		for (let i = 0; i < numSteps; i++) {
@@ -34,7 +36,7 @@
 			gridElement.style.border = '1px solid black';
 			gridElement.style.borderRadius = '3px';
 			gridElement.style.margin = '.1rem';
-			beatIndicator.appendChild(gridElement);
+			beatIndicator && beatIndicator.appendChild(gridElement);
 		}
 
 		getPresets();
@@ -46,7 +48,7 @@
 		console.log(presetList);
 	}
 
-	function handleClick(e) {
+	function handleClick(e: any) {
 		$SeqStore.grid[e.target.id].isActive
 			? (e.target.style.background = 'rgba(200, 182, 90, 0.8)')
 			: (e.target.style.background = 'rgb(5 150 105)');
@@ -57,7 +59,7 @@
 		});
 	}
 
-	function changeColor(e) {
+	function changeColor(e: any) {
 		if (e.type === 'mouseover' && !$SeqStore.grid[e.target.id].isActive) {
 			e.target.style.background = 'rgba(74, 82, 90, 0.8)';
 		}
@@ -84,34 +86,32 @@
 	async function handleGenPreset() {
 		const abortController = new AbortController();
 		const preset = await genRandomPreset(abortController.signal);
-		// console.log(preset);
 		SeqStore.update((data) => {
 			data.grid.splice(0, data.grid.length, ...preset);
 			return data;
 		});
-		// console.log($SeqStore.grid);
 		$SeqStore.grid.forEach((item, index) => {
 			const square = document.getElementById(index.toString());
-			item.isActive
-				? (square.style.background = 'rgb(5 150 105)')
-				: (square.style.background = 'transparent');
+
+			square &&
+				(item.isActive
+					? (square.style.background = 'rgb(5 150 105)')
+					: (square.style.background = 'transparent'));
 		});
 	}
 
 	let presetName = 'new preset';
-	async function handleSave(e) {
+	async function handleSave(e: any) {
 		e.preventDefault();
 		const boolVals = $SeqStore.grid.map(({ isActive }) => isActive);
 		const newPreset = {
 			name: presetName,
 			pattern: boolVals
 		};
-		// console.log(newPreset);
 		const preset = await createPreset(newPreset);
 	}
 
 	function handleLoad() {
-		// console.log(selected);
 		SeqStore.update((data) => {
 			const { pattern } = selected;
 			console.log(pattern);
@@ -127,9 +127,10 @@
 		});
 		$SeqStore.grid.forEach((item, index) => {
 			const square = document.getElementById(index.toString());
-			item.isActive
-				? (square.style.background = 'rgb(5 150 105)')
-				: (square.style.background = 'transparent');
+			square &&
+				(item.isActive
+					? (square.style.background = 'rgb(5 150 105)')
+					: (square.style.background = 'transparent'));
 		});
 	}
 </script>

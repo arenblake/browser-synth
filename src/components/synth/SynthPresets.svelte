@@ -8,7 +8,9 @@
 	import { createSynthPreset, listSynthPresets } from '../../utils/api';
 	let presetList: any[] = [];
 	let presetName = 'new synth preset';
-	let selected: object;
+	let selected: {
+		settings: string;
+	};
 
 	async function getPresets() {
 		presetList = await listSynthPresets();

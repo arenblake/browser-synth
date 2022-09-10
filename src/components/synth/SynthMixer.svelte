@@ -1,15 +1,11 @@
 <script>
+	// @ts-ignore
 	import Knob from 'svelte-knob';
 	import { Osc1Store } from './stores/Osc1Store';
 	import { Osc2Store } from './stores/Osc2Store';
 
 	let gainA = 0;
 	let gainB = 0;
-
-	// $: {
-	// 	gainA = $Osc1Store.gain;
-	// 	gainB = $Osc2Store.gain;
-	// }
 
 	$: {
 		Osc1Store.update((data) => {

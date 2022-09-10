@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import Tabs from '$lib/Tabs.svelte';
 	import TabStore from './TabStore';
 
@@ -7,17 +7,11 @@
 	let items = ['Synth 1', 'Effects'];
 
 	let activeItem = $TabStore.activeItem;
-	// const tabChange = (e) => (activeItem = e.detail);
-	const tabChange = (e) =>
+	const tabChange = (e: any) =>
 		TabStore.update((data) => {
 			data.activeItem = e.detail;
 			return data;
 		});
-
-	// SeqStore.update(data => {
-	//             data.beat = beat
-	//             return data
-	//         })
 </script>
 
 <header class="flex justify-between bg-gray-300 ">
@@ -29,23 +23,6 @@
 </header>
 
 <style>
-	/* header {
-		background: rgba(38, 70, 83, 0.2);
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding: 5px;
-	} */
-
-	/* h1 {
-		margin: 0;
-	} */
-
-	a {
-		text-decoration: none;
-		padding-right: 5px;
-	}
-
 	.tabs {
 		margin-right: 10px;
 	}

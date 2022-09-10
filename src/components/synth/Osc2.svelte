@@ -1,10 +1,11 @@
 <script lang="ts">
+	//@ts-ignore
 	import Knob from 'svelte-knob';
 	import { Osc2Store } from './stores/Osc2Store';
 	let oscType = 'square';
-	let octave = '0';
+	let octave = 0;
 
-	function changeOsc(type) {
+	function changeOsc(type: string) {
 		oscType = type;
 		Osc2Store.update((data) => {
 			data.oscType = type;
@@ -12,7 +13,7 @@
 		});
 	}
 
-	function changeOctave(newOctave) {
+	function changeOctave(newOctave: number) {
 		octave = newOctave;
 		Osc2Store.update((data) => {
 			data.octave = newOctave;
@@ -54,33 +55,33 @@
 	<div class="inline-flex">
 		<button
 			class={`bg-gray-300 hover:bg-gray-200 text-gray-800 font-bold py-1 px-2 rounded-l ${
-				octave === '-24' && 'bg-gray-100'
+				octave === -24 && 'bg-gray-100'
 			}`}
-			on:click={() => changeOctave('-24')}>-2</button
+			on:click={() => changeOctave(-24)}>-2</button
 		>
 		<button
 			class={`bg-gray-300 hover:bg-gray-200 text-gray-800 font-bold py-1 px-2 ${
-				octave === '-12' && 'bg-gray-100'
+				octave === -12 && 'bg-gray-100'
 			}`}
-			on:click={() => changeOctave('-12')}>-1</button
+			on:click={() => changeOctave(-12)}>-1</button
 		>
 		<button
 			class={`bg-gray-300 hover:bg-gray-200 text-gray-800 font-bold py-1 px-2 ${
-				octave === '0' && 'bg-gray-100'
+				octave === 0 && 'bg-gray-100'
 			}`}
-			on:click={() => changeOctave('0')}>0</button
+			on:click={() => changeOctave(0)}>0</button
 		>
 		<button
 			class={`bg-gray-300 hover:bg-gray-200 text-gray-800 font-bold py-1 px-2 ${
-				octave === '12' && 'bg-gray-100'
+				octave === 12 && 'bg-gray-100'
 			}`}
-			on:click={() => changeOctave('12')}>+1</button
+			on:click={() => changeOctave(12)}>+1</button
 		>
 		<button
 			class={`bg-gray-300 hover:bg-gray-200 text-gray-800 font-bold py-1 px-2 rounded-r ${
-				octave === '24' && 'bg-gray-100'
+				octave === 24 && 'bg-gray-100'
 			}`}
-			on:click={() => changeOctave('24')}>+2</button
+			on:click={() => changeOctave(24)}>+2</button
 		>
 	</div>
 </div>

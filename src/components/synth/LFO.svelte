@@ -1,7 +1,7 @@
-<script>
+<script lang="ts">
 	import Knob from 'svelte-knob';
 	let size = 90;
-	export let name;
+	export let name: string;
 	export let speed = 0;
 	export let amp = 0;
 </script>
