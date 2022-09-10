@@ -4,7 +4,7 @@
 	let oscType = 'square';
 	let octave = '0';
 
-	function changeOsc(type) {
+	function changeOsc(type: string) {
 		oscType = type;
 		Osc1Store.update((data) => {
 			data.oscType = type;
@@ -12,7 +12,7 @@
 		});
 	}
 
-	function changeOctave(newOctave) {
+	function changeOctave(newOctave: string) {
 		octave = newOctave;
 		Osc1Store.update((data) => {
 			data.octave = newOctave;
