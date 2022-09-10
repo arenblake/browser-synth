@@ -1,45 +1,33 @@
 <script lang="ts">
 	import Knob from 'svelte-knob';
 	import { Osc1Store } from './stores/Osc1Store';
-	import { Osc2Store } from './stores/Osc2Store';
-	export let num: String;
-	// export let detune = 0;
-	export let oscType = 'square';
-	export let octave = '0';
+	let oscType = 'square';
+	let octave = '0';
 
-	let detune = num === '1' ? $Osc1Store.detune : $Osc2Store.detune;
-
-	function changeOsc(type) {
+	function changeOsc(type: string) {
 		oscType = type;
+		Osc1Store.update((data) => {
+			data.oscType = type;
+			return data;
+		});
 	}
 
-	function changeOctave(newOctave) {
+	function changeOctave(newOctave: string) {
 		octave = newOctave;
+		Osc1Store.update((data) => {
+			data.octave = newOctave;
+			return data;
+		});
 	}
 
 	$: {
-		if ((num = '1')) {
-			Osc1Store.update((data) => {
-				data.detune = detune;
-				data.oscType = oscType;
-				data.octave = octave;
-				return data;
-			});
-		}
-
-		if ((num = '2')) {
-			Osc2Store.update((data) => {
-				data.detune = detune;
-				data.oscType = oscType;
-				data.octave = octave;
-				return data;
-			});
-		}
+		oscType = $Osc1Store.oscType;
+		octave = $Osc1Store.octave;
 	}
 </script>
 
 <div class="osc">
-	<h3 class="text-xl">OSC {num}</h3>
+	<h3 class="text-xl">OSC 1</h3>
 	<div class="inline-flex flex justify-center">
 		<button
 			class={`bg-gray-300 hover:bg-gray-200 text-gray-800 font-bold py-1 px-2 rounded-l ${
@@ -61,7 +49,7 @@
 		>
 	</div>
 	<h4 class="text-base">Pitch</h4>
-	<Knob bind:value={detune} min={-100} max={100} step={0.1} />
+	<Knob bind:value={$Osc1Store.detune} min={-100} max={100} step={0.1} />
 	<h4 class="text-base">Octave</h4>
 	<div class="inline-flex">
 		<button
