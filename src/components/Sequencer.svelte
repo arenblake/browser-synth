@@ -2,7 +2,6 @@
 	import { onMount } from 'svelte';
 	import SeqStore from './SeqStore';
 	import { genRandomPreset, createPreset, listPresets } from '../utils/api';
-	import { object_without_properties } from 'svelte/internal';
 
 	let numSteps = 32;
 	let numNotes = 8;

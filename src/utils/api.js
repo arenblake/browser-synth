@@ -63,3 +63,18 @@ export async function listPresets(signal) {
 	const url = `${API_BASE_URL}/sequencer`;
 	return await fetchJson(url, { headers, signal }, []);
 }
+
+export async function createSynthPreset(data) {
+	const url = `${API_BASE_URL}/synth`;
+	const options = {
+		method: 'POST',
+		headers,
+		body: JSON.stringify({ data })
+	};
+	return await fetchJson(url, options, {});
+}
+
+export async function listSynthPresets(signal) {
+	const url = `${API_BASE_URL}/synth`;
+	return await fetchJson(url, { headers, signal }, []);
+}

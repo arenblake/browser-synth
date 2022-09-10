@@ -1,76 +1,83 @@
 <script lang="ts">
-    import Envelopes from "./Envelopes.svelte";
-    import Filter from "./Filter.svelte";
-    import LfOs from "./LFOs.svelte";
-    import Osc from "./Osc.svelte";
-    import SynthMixer from "./SynthMixer.svelte";
-    import {Osc1Store} from './stores/Osc1Store'
-    import {Osc2Store} from './stores/Osc2Store'
-import Rack from "../Rack.svelte";
+	import Envelopes from './Envelopes.svelte';
+	import Filter from './Filter.svelte';
+	import LfOs from './LFOs.svelte';
+	import Osc from './Osc.svelte';
+	import SynthMixer from './SynthMixer.svelte';
+	import { Osc1Store } from './stores/Osc1Store';
+	import { Osc2Store } from './stores/Osc2Store';
+	import Rack from '../Rack.svelte';
+	import Osc2 from './Osc2.svelte';
+	import Osc1 from './Osc1.svelte';
 
-    let detuneA: number
-    let detuneB: number
-    let oscTypeA: string
-    let oscTypeB: string
-    let octaveA: string
-    let octaveB: string
+	let detuneA: number;
+	let detuneB: number;
+	let oscTypeA: string;
+	let oscTypeB: string;
+	let octaveA: string;
+	let octaveB: string;
 
-    $: {
-        Osc1Store.update(data => {
-            data.detune = detuneA
-            data.oscType = oscTypeA
-            data.octave = octaveA
-            return data
-        })
-    }
+	// $: {
+	// 	detuneA = $Osc1Store.detune;
+	// 	detuneB = $Osc2Store.detune;
+	// 	oscTypeA = $Osc1Store.oscType;
+	// 	oscTypeB = $Osc2Store.oscType;
+	// 	octaveA = $Osc1Store.octave.toString();
+	// 	octaveB = $Osc2Store.octave.toString();
+	// }
 
-    $: {
-        Osc2Store.update(data => {
-            data.detune = detuneB
-            data.oscType = oscTypeB
-            data.octave = octaveB
-            return data
-        })
-    }
+	// $: {
+	// 	Osc1Store.update((data) => {
+	// 		data.detune = detuneA;
+	// 		data.oscType = oscTypeA;
+	// 		data.octave = octaveA;
+	// 		return data;
+	// 	});
+	// }
 
+	// $: {
+	// 	Osc2Store.update((data) => {
+	// 		data.detune = detuneB;
+	// 		data.oscType = oscTypeB;
+	// 		data.octave = octaveB;
+	// 		return data;
+	// 	});
+	// }
 </script>
+
 <Rack>
-    <div class="module oscs">
-        <Osc num='1' 
-        bind:detune={detuneA}
-        bind:oscType={oscTypeA}
-        bind:octave={octaveA}/>
-        <Osc num='2' 
-        bind:detune={detuneB}
-        bind:oscType={oscTypeB}
-        bind:octave={octaveB}/>
-    </div>
-    <div class="module mixer">
-        <SynthMixer />
-    </div>
-    <div class="module filter">
-        <Filter />
-    </div>
-    <div class="module env">
-        <Envelopes />
-    </div>
-    <div class="module lfos">
-        <LfOs />
-    </div>
+	<div class="module oscs">
+		<!-- <Osc num="1" bind:detune={detuneA} bind:oscType={oscTypeA} bind:octave={octaveA} />
+		<Osc num="2" bind:detune={detuneB} bind:oscType={oscTypeB} bind:octave={octaveB} /> -->
+		<!-- <Osc num="1" /> -->
+		<!-- <Osc num="2" /> -->
+		<Osc1 />
+		<Osc2 />
+	</div>
+	<div class="module mixer">
+		<SynthMixer />
+	</div>
+	<div class="module filter">
+		<Filter />
+	</div>
+	<div class="module env">
+		<Envelopes />
+	</div>
+	<div class="module lfos">
+		<LfOs />
+	</div>
 </Rack>
 
-
 <style>
-    .module {
-        border: 3px solid black;
-        min-height: 5rem;
-        border-radius: 5px;
-        box-shadow: 1px 1px 3px rgba(0,0,0,0.7);
-    }
+	.module {
+		border: 3px solid black;
+		min-height: 5rem;
+		border-radius: 5px;
+		box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+	}
 
-    .oscs {
-        display: flex;
-        justify-content: space-around;
-    }
-
+	.oscs {
+		display: flex;
+		justify-content: space-around;
+	}
 </style>

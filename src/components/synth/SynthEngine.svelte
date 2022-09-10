@@ -75,13 +75,13 @@
 	}
 
 	$: {
-		if (synths) {
+		if (synths && $Osc1Store) {
 			for (let synth in synths) {
 				synths[synth].oscillator.type = $Osc1Store.oscType;
 			}
 		}
 
-		if (synthsB) {
+		if (synthsB && $Osc1Store) {
 			for (let synth in synthsB) {
 				synthsB[synth].oscillator.type = $Osc2Store.oscType;
 			}
@@ -99,12 +99,14 @@
 	}
 
 	$: {
-		transposeA = $Osc1Store.octave;
-		transposeB = $Osc2Store.octave;
+		if ($Osc1Store) {
+			transposeA = $Osc1Store.octave;
+			transposeB = $Osc2Store.octave;
+		}
 	}
 
 	$: {
-		if (synths) {
+		if (synths && $Osc1Store) {
 			for (let synth in synths) {
 				synths[synth].set({
 					detune: $Osc1Store.detune
@@ -114,7 +116,7 @@
 	}
 
 	$: {
-		if (synthsB) {
+		if (synthsB && $Osc1Store) {
 			for (let synth in synthsB) {
 				synthsB[synth].set({
 					detune: $Osc2Store.detune
@@ -124,7 +126,7 @@
 	}
 
 	$: {
-		if (synths) {
+		if (synths && $Osc1Store) {
 			for (let synth in synths) {
 				synths[synth].volume.rampTo($Osc1Store.gain, 0.5);
 			}
@@ -132,7 +134,7 @@
 	}
 
 	$: {
-		if (synthsB) {
+		if (synthsB && $Osc1Store) {
 			for (let synth in synthsB) {
 				synthsB[synth].volume.rampTo($Osc2Store.gain, 0.5);
 			}
