@@ -9,6 +9,8 @@
 	import { Lfo1, Lfo2, Lfo3, Lfo4 } from './stores/LfoStore';
 	import { Reverb } from '../effects/stores/EffectsStore';
 	import type { MonoSynth } from 'tone';
+	import { makeSynths } from './utils/ToneObjects';
+	import { makeGrid } from './utils/Grid';
 
 	let synths: MonoSynth[];
 	let synthsB: MonoSynth[];
@@ -196,34 +198,6 @@
 		}
 	}
 
-	const makeSynths = (
-		count: number,
-		tremolo: Tone.Tremolo | Tone.InputNode,
-		vibrato: Tone.Vibrato | Tone.InputNode,
-		reverb: Tone.Reverb | Tone.InputNode,
-		delay: Tone.Delay,
-		distortion: Tone.Distortion,
-		autofilter: Tone.AutoFilter,
-		bitcrusher: Tone.BitCrusher
-	) => {
-		const synths = [];
-		for (let i = 0; i < count; i++) {
-			const synth = new Tone.MonoSynth();
-			synth.chain(
-				vibrato,
-				tremolo,
-				reverb,
-				// delay,
-				// distortion,
-				// autofilter,
-				// bitcrusher,
-				Tone.Destination
-			);
-			synths.push(synth);
-		}
-		return synths;
-	};
-
 	const makeEffects = () => {
 		tremolo1 = new Tone.Tremolo().start();
 		vibrato1 = new Tone.Vibrato();
@@ -245,26 +219,6 @@
 			autofilter,
 			bitcrusher
 		};
-	};
-
-	const makeGrid = () => {
-		const rows = [];
-		const notes = ['C4', 'B3', 'A3', 'G3', 'F3', 'E3', 'D3', 'C3'];
-		let counter = 0;
-		for (let note in notes) {
-			const row = [];
-			for (let i = 0; i < 32; i++) {
-				row.push({
-					note: notes[note],
-					isActive: false,
-					id: counter
-				});
-				counter++;
-			}
-			rows.push(row);
-		}
-
-		return rows;
 	};
 
 	const configLoop = () => {
